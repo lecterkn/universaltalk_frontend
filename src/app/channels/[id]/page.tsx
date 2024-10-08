@@ -35,9 +35,9 @@ const Channel = ({params}: {params:{ id:UUID}}) => {
     <div className="relative w-full h-full bg-gray-700">
       {channel ? <ChannelHeader key={channel.id} channel={channel}/> : <ChannelHeaderSkeleton/>}
       <ScrollArea className="p-8 m-8 h-64">
-        {messages[channelId] ? messages[channelId].map(message => (
+        {messages[channelId]?.filter(it => it != null).map(message => (
           <MessageCard key={message.id} message={message}></MessageCard>
-        )) : <div></div>}
+        ))}
       </ScrollArea>
       <div className="absolute bottom-8 left-8 right-8">
         <NewMessage key={channelId} channelId={channelId}></NewMessage>

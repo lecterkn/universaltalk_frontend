@@ -72,14 +72,11 @@ export const useMessageStore = create<MessageStore>((set) => ({
     }
   })),
   addMessages: (channelId: UUID, messages: MessageEntity[]) => set(state => ({
-    messages: {
-      ...state.messages,
-      [channelId]: {
-        ...(state.messages[channelId]),
-        ...messages
-      }
-    }
-   })),
+    messages: (() => {
+      state.messages[channelId]?.push(...messages)
+      return state.messages
+    })()
+  })),
   removeMessage: (channelId: UUID, messageId: UUID) => set(state => ({
     messages: {
       ...state.messages,
