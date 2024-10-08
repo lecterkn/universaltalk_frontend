@@ -1,7 +1,11 @@
 import { UUID } from "crypto";
 
 export interface ChannelResponse {
-    list: Channel[]
+    list: ChannelEntity[]
+}
+
+export interface MessageResponse {
+    messages: MessageEntity[]
 }
 
 export interface UserAndProfile {
@@ -27,7 +31,16 @@ export interface UserProfileResponse {
     updatedAt: Date;
 }
 
-export interface Channel {
+export interface MessageEntity {
+    id: UUID;
+    channelId: UUID;
+    userId: UUID;
+    message: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface ChannelEntity {
     id: UUID;
     ownerId: UUID;
     name: string;

@@ -1,30 +1,36 @@
-import React from 'react'
-import { Button } from "@/components/ui/button"
-import Link from 'next/link'
-import { Captions, Plus } from 'lucide-react'
-import { Channel } from '@/app/api/response/schema'
-import ChannelCard from './ChannelCard'
+import React from "react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Captions, Plus } from "lucide-react";
+import { ChannelEntity } from "@/app/api/response/schema";
+import ChannelCard, { ChannelCardSkelton } from "./ChannelCard";
 
 interface ChatMenuProps {
-  channels: Channel[];
+  channels: ChannelEntity[];
 }
 
-const ChatMenu: React.FC<ChatMenuProps> = ({channels}) => {
+const ChatMenu: React.FC<ChatMenuProps> = ({ channels }) => {
   return (
     <div>
-      <Button asChild className='block flex items-center space-x-2'>
-        <Link href='/new'>
-          <Plus/>
-          <span>新規作成</span>
-        </Link>
-      </Button>
       <nav className="space-y-1 py-2">
-        {channels.map(channel => (
-          <ChannelCard channel={channel}></ChannelCard>
+        {channels.map((channel) => (
+          <ChannelCard key={channel.id} channel={channel}></ChannelCard>
         ))}
+      </nav>
+    </div>
+  );
+};
+
+export const ChatMenuSkelton = () => {
+  return (
+    <div>
+      <nav className="space-y-1 py-2">
+        <ChannelCardSkelton></ChannelCardSkelton>
+        <ChannelCardSkelton></ChannelCardSkelton>
+        <ChannelCardSkelton></ChannelCardSkelton>
       </nav>
     </div>
   )
 }
 
-export default ChatMenu
+export default ChatMenu;

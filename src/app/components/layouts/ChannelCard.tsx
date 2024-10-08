@@ -2,10 +2,11 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { Captions } from 'lucide-react'
-import { Channel } from '@/app/api/response/schema'
+import { ChannelEntity } from '@/app/api/response/schema'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface ChannelCardProps {
-  channel: Channel;
+  channel: ChannelEntity;
 }
 
 const ChannelCard: React.FC<ChannelCardProps> = ({channel}) => {
@@ -17,6 +18,16 @@ const ChannelCard: React.FC<ChannelCardProps> = ({channel}) => {
             <span className="text-md font-semibold">{channel.name}</span>
           </Link>
         </Button>
+    </div>
+  )
+}
+
+export const ChannelCardSkelton = () => {
+  return (
+    <div>
+      <div className='block flex justify-start items-center space-x-2'>
+        <Skeleton className="h-8 w-64 mx-4 my-2 rounded-full"/>
+      </div>
     </div>
   )
 }
