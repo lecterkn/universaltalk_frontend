@@ -34,6 +34,21 @@ export async function getUserProfile(id: UUID) {
   return data;
 }
 
+export async function updateChannel(id: UUID, name: string, permission: string) {
+  const response = await fetch(`${host}/api/v1/users/channels/${id}`, {
+    method: "PATCH",
+    cache: "no-store",
+    headers: {
+      Authorization: authorization,
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({name: name, permission: permission})
+  });
+  const data: ChannelEntity = await response.json();
+  return data;
+}
+
+
 export async function createChannel(name: string, permission: string) {
   const response = await fetch(`${host}/api/v1/users/channels`, {
     method: "POST",
@@ -48,6 +63,17 @@ export async function createChannel(name: string, permission: string) {
   return data;
 }
 
+export async function deleteChannel(id: UUID) {
+  const response = await fetch(`${host}/api/v1/users/channels/${id}`, {
+    method: "DELETE",
+    cache: "no-store",
+    headers: {
+      Authorization: authorization,
+    },
+  });
+  return response.status == 204;
+}
+
 export async function getChannel(id: UUID) {
   const response = await fetch(`${host}/api/v1/users/channels/${id}`, {
     cache: "no-store",
@@ -55,6 +81,9 @@ export async function getChannel(id: UUID) {
       Authorization: authorization,
     },
   });
+  if (response.status != 200) {
+    return null
+  }
   const data: ChannelEntity = await response.json();
   return data;
 }

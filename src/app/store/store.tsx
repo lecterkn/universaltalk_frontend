@@ -1,10 +1,13 @@
 import { create } from "zustand";
-import { ChannelEntity, ChannelResponse, MessageResponse, UserProfileResponse, UserResponse } from "../api/response/schema";
+import { ChannelEntity, ChannelResponse, MessageEntity, MessageResponse, UserProfileResponse, UserResponse } from "../api/response/schema";
 import { channel } from "process";
+import { UUID } from "crypto";
 
 interface ChannelListStore {
   channels: ChannelEntity[];
   addChannel: (channel: ChannelEntity) => void;
+  editChannel: (channel: ChannelEntity) => void;
+  removeChannel: (channelId: UUID) => void;
   setChannels: (channel: ChannelEntity[]) => void;
 }
 
@@ -21,16 +24,31 @@ interface UserStore {
 }
 
 interface MessageStore {
-  messages: MessageResponse | null;
-  setMessages: (messages: MessageResponse | null) => void;
+  messages: {
+    [channelId: UUID]: MessageEntity[]
+  };
+  updateMessages: (channelId: UUID, messages: MessageEntity[]) => void;
+  addMessages:(channelId: UUID, messages: MessageEntity[]) => void;
+  removeMessage: (channelId: UUID, messageId: UUID) => void;
 }
 
 export const useChannelListStore = create<ChannelListStore>((set) => ({
   channels: [],
   addChannel: (channel: ChannelEntity) => set(state => ({
-    channels: [...state.channels, channel]
+    channels: [
+      ...state.channels,
+      channel
+    ]
   })),
-  setChannels: (channels: ChannelEntity[]) => set({channels})
+  editChannel: (channel: ChannelEntity) => set(state => ({
+    channels: state.channels.map((c) => c.id == channel.id ? channel : c)
+  })),
+  removeChannel: (channelId: UUID) => (set(state => ({
+    channels: state.channels.filter(it => it.id != channelId)
+  }))),
+  setChannels: (channelList: ChannelEntity[]) => set({
+    channels: channelList
+  })
 }));
 
 export const useChannelStore = create<ChannelStore>((set) => ({
@@ -46,6 +64,28 @@ export const useUserStore = create<UserStore>((set) => ({
 }));
 
 export const useMessageStore = create<MessageStore>((set) => ({
-  messages: null,
-  setMessages: (messages: MessageResponse | null) => set({messages})
-}))
+  messages: {},
+  updateMessages: (channelId: UUID, messages: MessageEntity[]) => set(state => ({
+    messages: {
+      ...state.messages,
+      [channelId]: messages
+    }
+  })),
+  addMessages: (channelId: UUID, messages: MessageEntity[]) => set(state => ({
+    messages: {
+      ...state.messages,
+      [channelId]: {
+        ...(state.messages[channelId]),
+        ...messages
+      }
+    }
+   })),
+  removeMessage: (channelId: UUID, messageId: UUID) => set(state => ({
+    messages: {
+      ...state.messages,
+      [channelId]: state.messages[channelId].filter(
+        (message) => message.id != messageId
+      )
+    }
+  })),
+}));

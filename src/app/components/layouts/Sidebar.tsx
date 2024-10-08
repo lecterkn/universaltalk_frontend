@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import ChatMenu, { ChatMenuSkelton } from "./ChatMenu";
+import ChatMenu, { ChatMenuSkelton } from "./ChannelList";
 import UserTab, { UserTabSkelton } from "./UserTab";
 import { getChannels, getUser, getUserProfile } from "@/app/api/api";
 import {

@@ -10,6 +10,7 @@ import { z } from "zod"
 import { useForm } from 'react-hook-form'
 import { sendMessage } from '@/app/api/api'
 import { UUID } from 'crypto'
+import { useMessageStore } from '@/app/store/store';
 
 interface NewMessageProps {
   channelId: UUID
@@ -29,8 +30,12 @@ const NewMessage:React.FC<NewMessageProps>= ({channelId}) => {
       message: ""
     }
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    sendMessage(channelId, values.message);
+  const {addMessages} = useMessageStore();
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const response = await sendMessage(channelId, values.message);
+    if (response != null) {
+      addMessages(channelId, [response]);
+    }
     form.reset({message:""});
   }
   return (

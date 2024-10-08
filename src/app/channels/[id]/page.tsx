@@ -6,39 +6,39 @@ import ChannelHeader, { ChannelHeaderSkeleton } from '@/app/components/channels/
 import MessageCard from '@/app/components/channels/MessageCard';
 import NewMessage from '@/app/components/channels/NewMessage';
 import { useChannelStore, useMessageStore } from '@/app/store/store';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { UUID } from 'crypto';
 import React, { useEffect } from 'react'
 
 const Channel = ({params}: {params:{ id:UUID}}) => {
   const channelId = params.id
-  const {messages, setMessages } = useMessageStore();
+  const {messages, updateMessages } = useMessageStore();
   const {channel, setChannel} = useChannelStore();
   useEffect(() => {
     const fetchMessages = async() => {
       const messages: MessageResponse = await getMessages(channelId, null)
-      setMessages(messages)
-      return () => {
-        setMessages(null);
-      }
+      updateMessages(channelId, messages.messages)
     }
     const fetchChannel = async() => {
-      const channel: ChannelEntity = await getChannel(channelId)
-      setChannel(channel)
+      const channel = await getChannel(channelId)
+      if (channel != null) {
+        setChannel(channel)
+      }
       return () => {
         setChannel(null);
       }
     }
     fetchChannel()
     fetchMessages()
-  }, [setMessages, setChannel]);
+  }, [updateMessages, setChannel]);
   return (
     <div className="relative w-full h-full bg-gray-700">
       {channel ? <ChannelHeader key={channel.id} channel={channel}/> : <ChannelHeaderSkeleton/>}
-      <div className="p-8 m-8">
-        {messages ? messages.messages.map(message => (
+      <ScrollArea className="p-8 m-8 h-64">
+        {messages[channelId] ? messages[channelId].map(message => (
           <MessageCard key={message.id} message={message}></MessageCard>
         )) : <div></div>}
-      </div>
+      </ScrollArea>
       <div className="absolute bottom-8 left-8 right-8">
         <NewMessage key={channelId} channelId={channelId}></NewMessage>
       </div>

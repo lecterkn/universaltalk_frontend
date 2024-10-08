@@ -40,6 +40,21 @@ export interface MessageEntity {
     updatedAt: Date;
 }
 
+export const ChannelPermissions = [
+    {
+      value: "readOnly",
+      label: "閲覧のみ"
+    },
+    {
+      value: "writable",
+      label: "書込可能"
+    },
+    {
+      value: "private",
+      label: "非公開"
+    }
+]
+
 export interface ChannelEntity {
     id: UUID;
     ownerId: UUID;
