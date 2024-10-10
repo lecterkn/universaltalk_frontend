@@ -55,7 +55,7 @@ const NewMessage:React.FC<NewMessageProps>= ({channelId}) => {
             </FormControl>
           )}
         />
-        <Button asChild size="icon" type='submit' variant="secondary">
+        <Button asChild size="icon" type='submit' variant="secondary" onClick={form.handleSubmit(onSubmit)}>
           <Send className='p-2'/>
         </Button>
       </form>

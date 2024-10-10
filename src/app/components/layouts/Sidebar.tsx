@@ -9,11 +9,12 @@ import {
   UserProfileResponse,
   UserResponse,
 } from "@/app/api/response/schema";
-import { useChannelListStore, useUserStore } from "@/app/store/store";
+import { useChannelListStore, useUserProfileListStorea, useUserStore } from "@/app/store/store";
 import NewChat from "./NewChat";
 
 const Sidebar = () => {
   const {channels, setChannels} = useChannelListStore();
+  const {updateProfiles} = useUserProfileListStorea();
   const {user, profile, setUser, setProfile} = useUserStore();
   useEffect(() => {
     // チャンネル取得
@@ -27,10 +28,11 @@ const Sidebar = () => {
       setUser(user);
       const profile: UserProfileResponse = await getUserProfile(user.id);
       setProfile(profile);
+      updateProfiles(profile);
     }
     fetchChannels();
     fetchUser();
-  }, [setChannels, setProfile]);
+  }, [setChannels, updateProfiles]);
 
   return (
     <div className="bg-gray-800 text-white w-64 h-screen p-4">

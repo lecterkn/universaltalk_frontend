@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { ChannelEntity, ChannelResponse, MessageEntity, MessageResponse, UserProfileResponse, UserResponse } from "../api/response/schema";
 import { channel } from "process";
 import { UUID } from "crypto";
+import { profile } from "console";
 
 interface ChannelListStore {
   channels: ChannelEntity[];
@@ -21,6 +22,11 @@ interface UserStore {
   profile: UserProfileResponse | null;
   setUser: (user: UserResponse) => void;
   setProfile: (profile: UserProfileResponse) => void;
+}
+
+interface UserProfileListStore {
+  profiles: UserProfileResponse[];
+  updateProfiles: (profile: UserProfileResponse) => void;
 }
 
 interface MessageStore {
@@ -85,4 +91,14 @@ export const useMessageStore = create<MessageStore>((set) => ({
       )
     }
   })),
+}));
+
+export const useUserProfileListStorea = create<UserProfileListStore>((set) => ({
+  profiles: [],
+  updateProfiles: (profile: UserProfileResponse) => set(state => ({
+    profiles: [
+      ...state.profiles.filter(it => it.id != profile.id),
+      profile
+    ]
+  }))
 }));
