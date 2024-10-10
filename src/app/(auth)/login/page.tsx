@@ -1,6 +1,7 @@
 "use client";
 
 import LoginDialog from '@/app/components/login/LoginDialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCookies } from 'next-client-cookies';
 import { redirect } from 'next/navigation';
 import React, { useState } from 'react'
@@ -10,10 +11,14 @@ const page = () => {
   if (cookie.get("token") !== undefined) {
     redirect("/home")
   }
-  const [openLoginDialog, setOpenLoginDialog] = useState(true);
+  const [openLoginDialog, setOpenLoginDialog] = useState(false);
   return (
-    <div>
-      <LoginDialog open={openLoginDialog} setOpen={setOpenLoginDialog}></LoginDialog>
+    <div className="w-screen h-screen bg-gray-700">
+      <div className="h-screen flex">
+        <div className="m-auto">
+          <LoginDialog open={openLoginDialog} setOpen={setOpenLoginDialog}></LoginDialog>
+        </div>
+      </div>
     </div>
   )
 }

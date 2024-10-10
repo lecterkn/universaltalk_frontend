@@ -17,23 +17,16 @@ const LoginDialog:React.FC<LoginDialogProps> = ({open, setOpen}) => {
   const cookies = useCookies();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const onLogin = () => {
-    let logged = false
-    postLogin(username, password).then((response) => {
-      if (response !== null) {
-        cookies.set("token", response.token)
-        logged = true
-      }
-      else {
-        setOpen(true);
-      }
-    }).catch(() => {
-      setOpen(true);
-    }).finally(() => {
-      if (logged) {
-        useRouter().replace("/home");
-      }
-    });
+  const router = useRouter();
+  const onLogin = async() => {
+    const jwtToken = await postLogin(username, password)
+    if (jwtToken !== null) {
+      cookies.set("token", jwtToken.token)
+      router.push("/home")
+    }
+    else {
+      setOpen(true)
+    }
   }
   return (
     <div>
