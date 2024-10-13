@@ -54,6 +54,9 @@ export const ChannelPermissions = [
       label: "非公開"
     }
 ]
+export interface LoginResponse {
+    token: string;
+}
 
 export interface ChannelEntity {
     id: UUID;
