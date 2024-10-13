@@ -1,7 +1,9 @@
+import { getUserProfile } from '@/app/api/api';
 import { MessageEntity } from '@/app/api/response/schema'
 import { useUserProfileListStorea } from '@/app/store/store';
 import { Skeleton } from '@/components/ui/skeleton';
 import { User } from 'lucide-react'
+import { UUID } from 'node:crypto';
 import React from 'react'
 
 interface MessageCardProps {
@@ -9,7 +11,21 @@ interface MessageCardProps {
 }
 
 const MessageCard:React.FC<MessageCardProps> = ({message}) => {
-  const {profiles} = useUserProfileListStorea();
+  const {profiles, updateProfiles} = useUserProfileListStorea();
+  const fetchUserProfile = async(id: UUID) => {
+    const response = await getUserProfile(id)
+    if (response !== null) {
+      updateProfiles(response);
+    }
+  }
+  const renderProfile = () => {
+    const profile = profiles.find(it => it.userId == message.userId)
+    if (profile == null) {
+      fetchUserProfile(message.userId);
+      return (<MessageSkeleton/>)
+    }
+    return (profile.displayName)
+  }
   return (
     <div className="text-white flex space-x-2 py-2">
       <div className="flex-shrink-0 flex justify-center py-2">
@@ -18,7 +34,7 @@ const MessageCard:React.FC<MessageCardProps> = ({message}) => {
       </div>
       <div className="flex flex-col justify-center">
         <span className="text-md font-semibold">
-          {profiles.find(it => it.userId == message.userId)?.displayName ?? <MessageSkeleton/>}
+          {renderProfile()}
         </span>
         <div className="inline-block rounded bg-gray-800 px-2 py-1">
           <span className="text-sm">{message.message}</span>
