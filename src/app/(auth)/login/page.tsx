@@ -2,7 +2,6 @@
 
 import LoginDialog from '@/app/components/login/LoginDialog';
 import LoginTabs from '@/app/components/login/LoginTabs';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCookies } from 'next-client-cookies';
 import { redirect } from 'next/navigation';
 import React, { useState } from 'react'

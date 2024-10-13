@@ -1,11 +1,11 @@
 "use client";
 
-import { getChannel, getChannels, getMessages } from '@/app/api/api';
-import { ChannelEntity, MessageResponse } from '@/app/api/response/schema';
+import { getChannel, getMessages } from '@/app/api/api';
+import { MessageResponse } from '@/app/api/response/schema';
 import ChannelHeader, { ChannelHeaderSkeleton } from '@/app/components/channels/ChannelHeader';
 import MessageCard from '@/app/components/channels/MessageCard';
 import NewMessage from '@/app/components/channels/NewMessage';
-import { useChannelListStore, useChannelStore, useMessageStore } from '@/app/store/store';
+import { useChannelListStore, useMessageStore } from '@/app/store/store';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { UUID } from 'crypto';
 import React, { useEffect } from 'react'

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Sidebar from "./components/layouts/Sidebar";
 import { CookiesProvider } from 'next-client-cookies/server';
 import { Toaster } from "@/components/ui/toaster";
 
