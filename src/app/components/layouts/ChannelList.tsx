@@ -1,7 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Captions, Plus } from "lucide-react";
 import { ChannelEntity } from "@/app/api/response/schema";
 import ChannelCard, { ChannelCardSkeleton } from "./ChannelCard";
 

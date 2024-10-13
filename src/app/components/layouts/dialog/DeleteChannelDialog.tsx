@@ -1,7 +1,7 @@
 import { deleteChannel } from '@/app/api/api';
 import { ChannelEntity } from '@/app/api/response/schema'
 import { useChannelListStore } from '@/app/store/store';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import React from 'react'
 
 interface DeleteChannelDialogProps {

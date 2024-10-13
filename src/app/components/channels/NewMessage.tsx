@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { Form, FormControl, FormField } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Send } from 'lucide-react'
-import React, { useState } from 'react'
+import React from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useForm } from 'react-hook-form'
