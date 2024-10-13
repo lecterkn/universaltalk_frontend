@@ -145,6 +145,9 @@ export async function sendMessage(channelId: UUID, message: string) {
     },
     body: JSON.stringify({message:message})
   });
+  if (response.status != 200) {
+    return null;
+  }
   const data: MessageEntity = await response.json();
   return data;
 }

@@ -8,7 +8,7 @@ import NewMessage from '@/app/components/channels/NewMessage';
 import { useChannelListStore, useChannelStore, useMessageStore } from '@/app/store/store';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { UUID } from 'crypto';
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const Channel = ({params}: {params:{ id:UUID}}) => {
   const channelId = params.id
