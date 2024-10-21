@@ -42,7 +42,7 @@ export const useChannelListStore = create<ChannelListStore>((set) => ({
   channels: [],
   addChannel: (channel: ChannelEntity) => set(state => ({
     channels: [
-      ...state.channels,
+      ...state.channels.filter(it => it.id != channel.id),
       channel
     ]
   })),
