@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { sendMessage } from '@/app/api/api'
 import { UUID } from 'crypto'
 import { useMessageStore } from '@/app/store/store';
+import { MessageEntity } from '@/app/api/response/schema';
 
 interface NewMessageProps {
   channelId: UUID
@@ -34,6 +35,7 @@ const NewMessage:React.FC<NewMessageProps>= ({channelId}) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await sendMessage(channelId, values.message);
     if (response != null) {
+      console.log(response);
       addMessages(channelId, [response]);
     }
     form.reset({message:""});
