@@ -2,8 +2,9 @@
 
 import { UUID } from "crypto";
 import Cookies from "js-cookie";
-import { MessageEntity } from "../api/response/schema";
+import { ChannelEntity, MessageEntity } from "../api/response/schema";
 import { on_add_message, on_delete_message, on_update_message } from "./handlers/message_handler";
+import { on_add_channel, on_delete_channel, on_update_channel } from "./handlers/channel_handler";
 
 const jwtToken = () => {
   return Cookies.get("token");
@@ -50,5 +51,17 @@ function handle_event(event: MessageEvent<any>) {
     else if (messageEvent.event == "delete_message") {
       const message: MessageEntity = JSON.parse(messageEvent.message);
       on_delete_message(message);
+    }
+    else if (messageEvent.event == "add_channel") {
+      const channel: ChannelEntity = JSON.parse(messageEvent.message);
+      on_add_channel(channel);
+    }
+    else if (messageEvent.event == "update_channel") {
+      const channel: ChannelEntity = JSON.parse(messageEvent.message);
+      on_update_channel(channel);
+    }
+    else if (messageEvent.event == "remove_channel") {
+      const channel: ChannelEntity = JSON.parse(messageEvent.message);
+      on_delete_channel(channel);
     }
 }

@@ -35,6 +35,12 @@ const MessageCard:React.FC<MessageCardProps> = ({message}) => {
       <div className="flex flex-col justify-center">
         <span className="text-md font-semibold">
           {renderProfile()}
+          <span className='font-light pl-4 text-gray-400'>
+            {new Date(message.createdAt).toLocaleDateString()}
+          </span>
+          <span className='font-light pl-2 text-gray-400'>
+            {new Date(message.createdAt).toLocaleTimeString()}
+          </span>
         </span>
         <div className="inline-block rounded bg-gray-800 px-2 py-1">
           <span className="text-sm">{message.message}</span>

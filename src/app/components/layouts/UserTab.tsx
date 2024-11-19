@@ -1,5 +1,5 @@
 import React from 'react'
-import { User } from 'lucide-react'
+import { Globe, User } from 'lucide-react'
 import { UserProfileResponse, UserResponse } from '@/app/api/response/schema'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -9,8 +9,12 @@ interface UserTabProps {
 }
 
 const UserTab:React.FC<UserTabProps> = ({user, profile}) => {
+  const [isOpenLanguageDialog, setOpenLanguageDialog] = React.useState(false);
+  const openLanguageDialog = () => {
+    setOpenLanguageDialog(true)
+  }
   return (
-      <div className="flex items-ecnter space-x-2">
+      <div className="flex space-x-2">
         <div className="flex-shrink-0 flex justify-center items-center">
           <User className="h-8 w-8">
           </User>

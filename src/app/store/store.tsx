@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { ChannelEntity, ChannelResponse, MessageEntity, MessageResponse, UserProfileResponse, UserResponse } from "../api/response/schema";
-import { channel } from "process";
 import { UUID } from "crypto";
-import { profile } from "console";
 
 interface ChannelListStore {
   channels: ChannelEntity[];

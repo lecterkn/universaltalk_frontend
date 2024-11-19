@@ -40,6 +40,7 @@ const ChannelCard: React.FC<ChannelCardProps> = ({channel}) => {
   const openEditDialog = () => {
     setOpenEditDialog(true);
   }
+  console.log(channel.name + ":" + channel.permission)
   return (
     <div>
       <DeleteChannelDialog channel={channel} open={isOpenDeleteDialog} setOpen={setOpenDeleteDialog}></DeleteChannelDialog>
