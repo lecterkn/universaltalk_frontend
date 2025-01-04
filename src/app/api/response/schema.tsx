@@ -1,7 +1,11 @@
 import { UUID } from "crypto";
 
 export interface ChannelResponse {
-    list: Channel[]
+    list: ChannelEntity[]
+}
+
+export interface MessageResponse {
+    messages: MessageEntity[]
 }
 
 export interface UserAndProfile {
@@ -27,7 +31,34 @@ export interface UserProfileResponse {
     updatedAt: Date;
 }
 
-export interface Channel {
+export interface MessageEntity {
+    id: UUID;
+    channelId: UUID;
+    userId: UUID;
+    message: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export const ChannelPermissions = [
+    {
+      value: "readOnly",
+      label: "閲覧のみ"
+    },
+    {
+      value: "writable",
+      label: "書込可能"
+    },
+    {
+      value: "private",
+      label: "非公開"
+    }
+]
+export interface LoginResponse {
+    token: string;
+}
+
+export interface ChannelEntity {
     id: UUID;
     ownerId: UUID;
     name: string;
